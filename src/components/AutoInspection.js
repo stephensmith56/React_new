@@ -5,8 +5,6 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import axios from "axios";
 
 
-
-
 function AutoInspection() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -14,14 +12,20 @@ function AutoInspection() {
     const [checked, setChecked] = React.useState(true);
     const [checked1, setChecked1] = React.useState(true);
     const [file, setFile] = useState();
+    const [imgName, setImgName] = useState()
+    
 
   function handleChange(event) {
-    setFile(event.target.files[0])
+    console.log(event.target.files);
+    setFile(event.target.files[0]);
   }
-  
+  function showImage() {
+    return jsonResponse.img_name
+  }
+  let jsonResponse = {}
   function handleSubmit(event) {
     event.preventDefault()
-    const url = 'https://exteriorlocation.azurewebsites.net/predict';
+    const URL = 'https://exteriorlocation.azurewebsites.net/predict';
     const formData = new FormData();
     formData.append('files[]', file);
     formData.append('fileName', file.name);
@@ -30,15 +34,15 @@ function AutoInspection() {
         'content-type': 'application/json',
       },
     };
-    axios.post(url, formData).then((response) => {
-      console.log(response.data.Sublocation);
+    axios.post(URL, formData).then((response) => {
+      //console.log(response.data); 
+      //response.data(item => response[item.id] = item.img_name);
+      jsonResponse = response.data[0]
+      console.log(jsonResponse);
+      setImgName(jsonResponse.img_name)
     });
 
   }
-
-  
-  
-
     
 return (    
         <div className="AutoInspection"> 
@@ -77,7 +81,9 @@ return (
                                       </Modal.Header>
                                   
                                       <Modal.Body>
-                                      <img src={"Sublocation"} alt="dummy" width="300" height="300" />
+                                      <div className="photo">
+                                        <img src={imgName} alt="" width="400" height="300" />
+                                      </div>
                                         Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.It was popularised in the 1960s with the release of letraset sheets containing lorem ipsum passages, and more recently with desktop publishing software like aldus pagemaker including versions of lorem ipsum.
                                       </Modal.Body>
                                       <Modal.Footer>
@@ -92,11 +98,10 @@ return (
                         </div>
                     </div>
                 </MDBContainer>          
-                
             </form>
         </div> 
 
 );
 }
-  
+
 export default AutoInspection;  
