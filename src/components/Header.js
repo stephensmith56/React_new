@@ -5,12 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 function Header() {
   let navigate = useNavigate();
-    const routeChange = () =>{
-        let path = '/AutoInspection';
-        navigate(path);
-    }
     
-    const handleLogout = () =>{
+    const handleLogout = () => {
         let path = '/login';
         navigate(path);
         window.localStorage.clear(); //clear all localstorage

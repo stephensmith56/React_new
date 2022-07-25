@@ -8,6 +8,10 @@ function Dashboard() {
         let path = '/AutoInspection';
         navigate(path);
     }
+    const routeChange1 = () =>{
+      let path = '/BG_Removal';
+      navigate(path);
+  }
     
     const ColoredLine = ({ color }) => (
         <hr
@@ -56,7 +60,7 @@ return (
                         Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.It was popularised in the 1960s with the release of letraset sheets containing lorem ipsum passages, and more recently with desktop publishing software like aldus pagemaker including versions of lorem ipsum.
                     </div>
                     <div className="text-end">
-                        <button type="button" className="btn btn-primary" onClick={routeChange}>Try it out</button> 
+                        <button type="button" className="btn btn-primary" onClick={routeChange1}>Try it out</button> 
                     </div>
                     
                 </form>
